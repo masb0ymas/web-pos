@@ -52,44 +52,45 @@
 
 /*
  * Design system: ui-ux-pro-max "My POS" (Flat Design, dark-first)
- * Latar slate gelap, aksen brand merah, tanpa bayangan, transisi 150-200ms.
- * Aplikasi berjalan tema gelap saja (lingkungan kasir).
+ * Palet: Coolors 042a2b-5eb1bf-cdedf6-ef7b45-d84727
+ *   #042A2B latar · #CDEDF6 teks · #5EB1BF ring/fokus · #EF7B45 aksen brand · #D84727 destruktif
+ * Warna permukaan antara (card/muted/border) diturunkan dari #042A2B agar hierarki tetap terbaca.
  */
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
-  --card: #0e1223;
-  --card-foreground: #f8fafc;
-  --popover: #0e1223;
-  --popover-foreground: #f8fafc;
-  --primary: #f8fafc;
-  --primary-foreground: #0f172a;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #1a1e2f;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
-  --destructive: #dc2626;
-  --border: #334155;
-  --input: #334155;
-  --ring: #94a3b8;
-  --chart-1: #ef4444;
-  --chart-2: #f8fafc;
-  --chart-3: #94a3b8;
-  --chart-4: #64748b;
-  --chart-5: #475569;
+  --background: #042a2b;
+  --foreground: #cdedf6;
+  --card: #063638;
+  --card-foreground: #cdedf6;
+  --popover: #063638;
+  --popover-foreground: #cdedf6;
+  --primary: #cdedf6;
+  --primary-foreground: #042a2b;
+  --secondary: #0b4243;
+  --secondary-foreground: #cdedf6;
+  --muted: #073334;
+  --muted-foreground: #5eb1bf;
+  --accent: #0b4243;
+  --accent-foreground: #cdedf6;
+  --destructive: #d84727;
+  --border: #12595b;
+  --input: #12595b;
+  --ring: #5eb1bf;
+  --chart-1: #ef7b45;
+  --chart-2: #5eb1bf;
+  --chart-3: #cdedf6;
+  --chart-4: #d84727;
+  --chart-5: #0b4243;
   --radius: 0.5rem;
-  --brand: #ef4444;
-  --brand-foreground: #ffffff;
-  --sidebar: #0b1120;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #ef4444;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #1e293b;
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: #1e293b;
-  --sidebar-ring: #94a3b8;
+  --brand: #ef7b45;
+  --brand-foreground: #042a2b;
+  --sidebar: #032122;
+  --sidebar-foreground: #cdedf6;
+  --sidebar-primary: #ef7b45;
+  --sidebar-primary-foreground: #042a2b;
+  --sidebar-accent: #0b4243;
+  --sidebar-accent-foreground: #cdedf6;
+  --sidebar-border: #0b4243;
+  --sidebar-ring: #5eb1bf;
 }
 
 @layer base {

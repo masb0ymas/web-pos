@@ -17,26 +17,32 @@
 
 ### Color Palette
 
+> **Palet dipilih pengguna** (Coolors: `042a2b-5eb1bf-cdedf6-ef7b45-d84727`), menggantikan palet rekomendasi otomatis.
+> Warna permukaan antara (card, muted, border, sidebar) diturunkan dari `#042A2B` agar hierarki tetap terbaca.
+> Implementasi: `src/app/globals.css` (`:root`).
+
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#0F172A` | `--color-primary` |
-| On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#1E293B` | `--color-secondary` |
-| On Secondary | `#FFFFFF` | `--color-on-secondary` |
-| Accent/CTA | `#EF4444` | `--color-accent` |
-| On Accent/CTA | `#000000` | `--color-on-accent` |
-| Background | `#020617` | `--color-background` |
-| Foreground | `#F8FAFC` | `--color-foreground` |
-| Card | `#0E1223` | `--color-card` |
-| Card Foreground | `#F8FAFC` | `--color-card-foreground` |
-| Muted | `#1A1E2F` | `--color-muted` |
-| Muted Foreground | `#94A3B8` | `--color-muted-foreground` |
-| Border | `#334155` | `--color-border` |
-| Destructive | `#EF4444` | `--color-destructive` |
-| On Destructive | `#000000` | `--color-on-destructive` |
-| Ring | `#FFFFFF` | `--color-ring` |
+| Primary (tombol utama) | `#CDEDF6` | `--primary` |
+| On Primary | `#042A2B` | `--primary-foreground` |
+| Secondary (tombol sekunder) | `#0B4243` | `--secondary` |
+| On Secondary | `#CDEDF6` | `--secondary-foreground` |
+| Accent/CTA (brand) | `#EF7B45` | `--brand` |
+| On Accent/CTA | `#042A2B` | `--brand-foreground` |
+| Background | `#042A2B` | `--background` |
+| Foreground | `#CDEDF6` | `--foreground` |
+| Card | `#063638` | `--card` |
+| Card Foreground | `#CDEDF6` | `--card-foreground` |
+| Muted | `#073334` | `--muted` |
+| Muted Foreground | `#5EB1BF` | `--muted-foreground` |
+| Border / Input | `#12595B` | `--border` / `--input` |
+| Destructive | `#D84727` | `--destructive` |
+| Ring (fokus) | `#5EB1BF` | `--ring` |
+| Sidebar | `#032122` | `--sidebar` |
+| Sidebar Accent | `#0B4243` | `--sidebar-accent` |
 
-**Color Notes:** High contrast dark + brand accent + large touch targets
+**Color Notes:** Dark teal surface + cyan focus + orange brand accent; kontras teks ≥4.5:1; target sentuh besar.
+Teks pada tombol oranye memakai `#042A2B` (bukan putih) demi kontras.
 
 ### Typography
 
@@ -80,10 +86,10 @@
 ### Buttons
 
 ```css
-/* Primary Button */
+/* Primary Button (aksen brand) */
 .btn-primary {
-  background: #EF4444;
-  color: white;
+  background: #ef7b45;
+  color: #042a2b;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -99,8 +105,8 @@
 /* Secondary Button */
 .btn-secondary {
   background: transparent;
-  color: #0F172A;
-  border: 2px solid #0F172A;
+  color: #cdedf6;
+  border: 2px solid #12595b;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -113,7 +119,7 @@
 
 ```css
 .card {
-  background: #020617;
+  background: #063638;
   border-radius: 12px;
   padding: 24px;
   box-shadow: var(--shadow-md);
@@ -132,16 +138,18 @@
 ```css
 .input {
   padding: 12px 16px;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #12595b;
+  background: #042a2b;
+  color: #cdedf6;
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 200ms ease;
 }
 
 .input:focus {
-  border-color: #0F172A;
+  border-color: #5eb1bf;
   outline: none;
-  box-shadow: 0 0 0 3px #0F172A20;
+  box-shadow: 0 0 0 3px #5eb1bf33;
 }
 ```
 
