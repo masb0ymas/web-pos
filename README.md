@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My POS
 
-## Getting Started
+Aplikasi kasir (Point of Sale) berbasis web untuk satu toko: kelola produk, transaksi kasir, invoice/struk, dan laporan penjualan. Berjalan tanpa login (single user) dengan database SQLite lokal.
 
-First, run the development server:
+Dokumen kebutuhan lengkap ada di [docs/PRD.md](docs/PRD.md). Panduan desain (hasil skill `ui-ux-pro-max`) ada di [design-system/my-pos/MASTER.md](design-system/my-pos/MASTER.md).
+
+## Fitur
+
+- **Dashboard** — ringkasan hari ini (pendapatan, transaksi, item terjual), stok rendah, transaksi terakhir
+- **Produk** — CRUD produk & kategori, pencarian/filter, aktif/nonaktif, penjagaan hapus untuk produk beriwayat transaksi
+- **Kasir** — grid produk, keranjang, diskon per item & per transaksi (Rp/%), PPN opsional, pembayaran Tunai (dengan kembalian) / QRIS / Kartu
+- **Invoice** — nomor otomatis `INV-YYYYMMDD-XXXX`, cetak A4 dan struk thermal 80mm
+- **Riwayat** — filter rentang tanggal, metode bayar, dan nomor invoice
+- **Laporan** — periode hari ini/minggu/bulan/kustom, ringkasan, rincian per metode bayar, ekspor CSV
+- **Pengaturan** — identitas toko, footer invoice, default PPN, ambang stok rendah
+
+## Menjalankan
+
+Prasyarat: Node.js 20.9+, pnpm 10+.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+cp .env.example .env        # atau buat .env berisi: DATABASE_URL="file:./dev.db"
+pnpm db:migrate             # membuat prisma/dev.db + tabel
+pnpm db:seed                # data contoh (kategori, 21 produk, transaksi 3 hari)
+pnpm dev                    # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build produksi:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm build
+pnpm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Script Database
 
-## Learn More
+| Perintah | Fungsi |
+|---|---|
+| `pnpm db:migrate` | Terapkan migrasi skema (membuat `prisma/dev.db`) |
+| `pnpm db:seed` | Isi ulang data contoh (menghapus data lama) |
+| `pnpm db:studio` | Buka Prisma Studio untuk inspeksi data |
+| `pnpm db:reset` | Reset database + jalankan ulang migrasi |
 
-To learn more about Next.js, take a look at the following resources:
+## Backup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Database adalah satu file SQLite: **`prisma/dev.db`**. Untuk backup, cukup salin file tersebut (hentikan server dulu agar konsisten):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cp prisma/dev.db backup/dev-$(date +%Y%m%d).db
+```
 
-## Deploy on Vercel
+Untuk memulihkan, ganti `prisma/dev.db` dengan file backup lalu jalankan `pnpm dev`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Teknologi
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16 (App Router, Turbopack) + React 19 + TypeScript
+- Tailwind CSS v4 + shadcn/ui (radix) — tema gelap "Flat Design" dari skill ui-ux-pro-max
+- Prisma 6 + SQLite
+- Server Actions + zod untuk semua mutasi data
+- Font: Rubik (judul) + Nunito Sans (isi), dimuat via Google Fonts
+
+## Struktur
+
+```
+src/
+├── actions/        # Server Actions (produk, transaksi, pengaturan)
+├── app/            # Halaman App Router
+├── components/     # Komponen UI (pos-terminal, form, tabel, dll.)
+└── lib/            # prisma, format, invoice, report, store
+prisma/
+├── schema.prisma   # Skema database
+├── migrations/     # Riwayat migrasi
+└── seed.ts         # Data contoh
+```

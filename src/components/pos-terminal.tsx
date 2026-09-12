@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   AlertCircle,
@@ -65,6 +65,14 @@ export function PosTerminal({
     checkout,
     initialState
   );
+  const [isSubmitting, startTransition] = useTransition();
+  const isBusy = isPending || isSubmitting;
+
+  useEffect(() => {
+    if (state.status === "success" && state.transactionId) {
+      router.push(`/transaksi/${state.transactionId}`);
+    }
+  }, [state, router]);
 
   const [search, setSearch] = useState("");
   const [categoryId, setCategoryId] = useState<number | null>(null);
@@ -103,7 +111,7 @@ export function PosTerminal({
   const total = Math.max(subtotal - txDiscount + taxAmount, 0);
   const change = amountPaid - total;
   const cashShort = paymentMethod === "CASH" && amountPaid < total;
-  const canSubmit = cart.length > 0 && !cashShort && !isPending;
+  const canSubmit = cart.length > 0 && !cashShort && !isBusy;
 
   /* ---------- Keranjang ---------- */
   const addToCart = (product: PosProduct) => {
@@ -173,12 +181,10 @@ export function PosTerminal({
       paymentMethod,
       amountPaid,
     });
-    formAction(payload);
+    startTransition(() => {
+      formAction(payload);
+    });
   };
-
-  if (state.status === "success" && state.transactionId) {
-    router.push(`/transaksi/${state.transactionId}`);
-  }
 
   return (
     <div className="flex flex-1 flex-col p-4 lg:p-6">
@@ -543,8 +549,8 @@ export function PosTerminal({
               disabled={!canSubmit}
               onClick={submit}
             >
-              {isPending && <Loader2 className="animate-spin" aria-hidden="true" />}
-              {isPending ? "Menyimpan…" : "Bayar"}
+              {isBusy && <Loader2 className="animate-spin" aria-hidden="true" />}
+              {isBusy ? "Menyimpan…" : "Bayar"}
             </Button>
           </div>
         </section>
