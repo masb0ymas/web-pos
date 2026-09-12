@@ -8,11 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "tsx prisma/seed.ts",
+    "db:seed": "tsx --env-file=.env prisma/seed.ts",
     "db:studio": "prisma studio",
-    "db:reset": "prisma migrate reset --force"
+    "db:reset": "prisma migrate reset --force",
+    "db:push-turso": "tsx --env-file=.env prisma/push-turso.ts"
   },
   "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "@prisma/adapter-libsql": "^6.19.3",
     "@prisma/client": "^6.19.3",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.2.6",

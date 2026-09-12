@@ -51,7 +51,7 @@ My-POS adalah aplikasi Point of Sale berbasis web untuk **satu toko** yang digun
 | Bahasa | TypeScript (strict) | |
 | Styling | Tailwind CSS v4 | Konfigurasi CSS-first via `globals.css` |
 | Komponen UI | shadcn/ui + lucide-react | Konsisten, cepat dikembangkan |
-| Database | SQLite (file lokal `prisma/dev.db`) | Mudah dibackup — cukup salin file |
+| Database | Turso (libSQL, SQLite terkelola) via `@prisma/adapter-libsql`; mode file lokal `prisma/dev.db` untuk pengembangan | Terkelola, dapat diakses dari mana saja; pemilihan otomatis dari `DATABASE_URL` |
 | ORM | Prisma | Migrasi & Prisma Studio untuk inspeksi data |
 | Format angka/tanggal | `Intl` dengan locale `id-ID` | Rupiah tanpa desimal, tanggal `dd MMMM yyyy` |
 
@@ -289,7 +289,7 @@ changeDue          = amountPaid − total                     (hanya CASH)
 | Performa | Keranjang & kalkulasi berjalan di client (tanpa round-trip per perubahan); grid produk luar halaman memakai pencarian server-side |
 | Format | Rupiah `Rp 150.000` (locale `id-ID`, tanpa desimal); tanggal `12 September 2026, 14.30` |
 | Keamanan data | Validasi Server Action dengan zod; semua mutasi divalidasi ulang di server |
-| Backup | Database berupa satu file SQLite; dokumen operasional cara backup disertakan di README |
+| Backup | Turso menyimpan backup otomatis (dashboard → *Backups*); ekspor manual via `turso db shell <db> .dump`. Mode file lokal: salin `prisma/dev.db`. Prosedur ada di README |
 | State kosong | Setiap daftar (produk, transaksi, laporan) punya empty state dengan aksi jelas |
 | Error | Kegagalan Server Action menampilkan pesan yang dapat dipahami, data form tidak hilang |
 | Build | `pnpm build` lolos tanpa error TypeScript/ESLint |
