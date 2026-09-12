@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# database lokal (jangan di-commit)
+/prisma/dev.db
+/prisma/dev.db-journal
+*.db-journal
+
+# cache python (script skill ui-ux-pro-max)
+__pycache__/
+*.pyc
