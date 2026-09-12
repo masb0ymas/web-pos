@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Berisi skrip pihak ketiga (skill ui-ux-pro-max) dan artefak sesi.
+    ".agents/**",
+    ".zcode/**",
   ]),
 ]);
 

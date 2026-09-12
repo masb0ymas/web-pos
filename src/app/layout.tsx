@@ -21,6 +21,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* Font dimuat via <link> agar build tidak bergantung jaringan; aturan ini untuk Pages Router. */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap"

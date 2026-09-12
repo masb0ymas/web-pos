@@ -1,4 +1,3 @@
-import { prisma } from "@/lib/prisma";
 import { formatRupiah, formatTanggal } from "@/lib/format";
 import { PAYMENT_METHODS } from "@/lib/constants";
 import { resolvePeriod, getReport } from "@/lib/report";

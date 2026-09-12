@@ -140,7 +140,14 @@ export async function checkout(
           changeDue,
           note: input.note,
           items: {
-            create: lines.map(({ stock: _stock, ...line }) => line),
+            create: lines.map((l) => ({
+              productId: l.productId,
+              productName: l.productName,
+              unitPrice: l.unitPrice,
+              quantity: l.quantity,
+              lineDiscount: l.lineDiscount,
+              lineTotal: l.lineTotal,
+            })),
           },
         },
       });
