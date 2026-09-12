@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +40,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# database lokal (jangan di-commit)
+/prisma/dev.db
+/prisma/dev.db-journal
+*.db-journal
+
+# cache python (script skill ui-ux-pro-max)
+__pycache__/
+*.pyc

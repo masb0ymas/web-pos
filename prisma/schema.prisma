@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Product {
+  id                Int               @id @default(autoincrement())
+  sku               String?           @unique
+  name              String
+  categoryId        Int?
+  category          Category?         @relation(fields: [categoryId], references: [id])
+  price             Int
+  cost              Int?
+  stock             Int               @default(0)
+  isActive          Boolean           @default(true)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  transactionItems  TransactionItem[]
+
+  @@index([categoryId])
+}
+
+model Transaction {
+  id                  Int                @id @default(autoincrement())
+  invoiceNumber       String             @unique
+  createdAt           DateTime           @default(now())
+  subtotal            Int
+  itemDiscountTotal   Int                @default(0)
+  transactionDiscount Int                @default(0)
+  taxRate             Int                @default(0)
+  taxAmount           Int                @default(0)
+  total               Int
+  paymentMethod       String
+  amountPaid          Int
+  changeDue           Int                @default(0)
+  note                String?
+  items               TransactionItem[]
+}
+
+model TransactionItem {
+  id            Int          @id @default(autoincrement())
+  transactionId Int
+  transaction   Transaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  productId     Int?
+  product       Product?     @relation(fields: [productId], references: [id])
+  productName   String
+  unitPrice     Int
+  quantity      Int
+  lineDiscount  Int          @default(0)
+  lineTotal     Int
+}
+
+model StoreSetting {
+  id                Int      @id @default(1)
+  storeName         String   @default("My Store")
+  address           String?
+  phone             String?
+  invoiceFooter     String?
+  taxEnabled        Boolean  @default(false)
+  taxRate           Int      @default(11)
+  lowStockThreshold Int      @default(5)
+  updatedAt         DateTime @updatedAt
+}
